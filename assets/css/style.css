@@ -1,0 +1,124 @@
+/* Besseres Layout */
+html, body {
+    height: 100%;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: #f8f9fa;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.container {
+    flex: 1;
+}
+
+/* Navbar Styling */
+.navbar-brand {
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+
+.navbar-dark {
+    background: linear-gradient(135deg, #2c3e50, #34495e) !important;
+}
+
+/* Card Styling */
+.card {
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease-in-out;
+}
+
+.card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.card-header {
+    background: linear-gradient(135deg, #3498db, #2980b9);
+    color: white;
+    border-radius: 10px 10px 0 0 !important;
+    font-weight: bold;
+}
+
+/* Button Styling */
+.btn {
+    border-radius: 6px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #3498db, #2980b9);
+    border: none;
+}
+
+.btn-primary:hover {
+    background: linear-gradient(135deg, #2980b9, #1f618d);
+    transform: translateY(-1px);
+}
+
+/* Footer FIX - damit er unten bleibt */
+footer {
+    margin-top: auto;
+    background: linear-gradient(135deg, #2c3e50, #34495e);
+    color: white;
+    padding: 1.5rem 0;
+}
+
+/* Hero Section */
+.hero-section {
+    background: linear-gradient(135deg, #3498db, #2c3e50);
+    color: white;
+    padding: 4rem 0;
+    border-radius: 0 0 20px 20px;
+    margin-bottom: 2rem;
+}
+
+/* Train-themed colors */
+.bg-train-primary {
+    background: linear-gradient(135deg, #e74c3c, #c0392b) !important;
+}
+
+.bg-train-secondary {
+    background: linear-gradient(135deg, #3498db, #2980b9) !important;
+}
+
+.bg-train-success {
+    background: linear-gradient(135deg, #27ae60, #229954) !important;
+}
+
+/* Image styling */
+.card-img-top {
+    height: 200px;
+    object-fit: cover;
+    border-radius: 10px 10px 0 0;
+}
+
+/* Form styling */
+.form-control {
+    border-radius: 6px;
+    border: 1px solid #ddd;
+    padding: 0.75rem;
+}
+
+.form-control:focus {
+    border-color: #3498db;
+    box-shadow: 0 0 0 0.2rem rgba(52, 152, 219, 0.25);
+}
+
+/* Alert styling */
+.alert {
+    border-radius: 8px;
+    border: none;
+}
+
+/* Custom train icon */
+.train-icon {
+    font-size: 1.2em;
+    margin-right: 5px;
+}
