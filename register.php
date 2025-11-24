@@ -22,7 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } elseif (!preg_match('/[0-9]/', $password)) {
         $error = 'Password must contain at least one number!';
     } elseif (!preg_match('/[!@#$%^&*(),.?":{}|<>]/', $password)) {
-        $error = 'Password must contain at least one special character (!@#$%^&* etc.)!';
+        $error = 'Password must contain at least one special character!';
     } elseif ($password !== $confirm_password) {
         $error = 'Passwords do not match!';
     } else {
@@ -76,12 +76,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <label for="password" class="form-label">Password</label>
                         <input type="password" class="form-control" id="password" name="password" required>
                         <div class="form-text">
-                            <strong>Password requirements:</strong>
+                            <strong>Password must contain:</strong>
                             <ul class="mb-0">
-                                <li>At least 8 characters long</li>
-                                <li>At least one uppercase letter (A-Z)</li>
-                                <li>At least one number (0-9)</li>
-                                <li>At least one special character (!@#$%^&* etc.)</li>
+                                <li>At least 8 characters</li>
+                                <li>At least one uppercase letter</li>
+                                <li>At least one number</li>
+                                <li>At least one special character</li>
                             </ul>
                         </div>
                     </div>
