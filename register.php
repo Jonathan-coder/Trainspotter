@@ -14,8 +14,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $password = $_POST['password'];
     $confirm_password = $_POST['confirm_password'];
     
-    // Basic validation
-    if ($password !== $confirm_password) {
+    // ERWEITERTE Passwort Validation
+    if (strlen($password) < 8) {
+        $error = 'Password must be at least 8 characters long!';
+    } elseif (!preg_match('/[A-Z]/', $password)) {
+        $error = 'Password must contain at least one uppercase letter!';
+    } elseif (!preg_match('/[0-9]/', $password)) {
+        $error = 'Password must contain at least one number!';
+    } elseif (!preg_match('/[!@#$%^&*(),.?":{}|<>]/', $password)) {
+        $error = 'Password must contain at least one special character (!@#$%^&* etc.)!';
+    } elseif ($password !== $confirm_password) {
         $error = 'Passwords do not match!';
     } else {
         // Check if user already exists
@@ -58,15 +66,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <form method="POST">
                     <div class="mb-3">
                         <label for="username" class="form-label">Username</label>
-                        <input type="text" class="form-control" id="username" name="username" required>
+                        <input type="text" class="form-control" id="username" name="username" value="<?php echo isset($_POST['username']) ? htmlspecialchars($_POST['username']) : ''; ?>" required>
                     </div>
                     <div class="mb-3">
                         <label for="email" class="form-label">Email</label>
-                        <input type="email" class="form-control" id="email" name="email" required>
+                        <input type="email" class="form-control" id="email" name="email" value="<?php echo isset($_POST['email']) ? htmlspecialchars($_POST['email']) : ''; ?>" required>
                     </div>
                     <div class="mb-3">
                         <label for="password" class="form-label">Password</label>
                         <input type="password" class="form-control" id="password" name="password" required>
+                        <div class="form-text">
+                            <strong>Password requirements:</strong>
+                            <ul class="mb-0">
+                                <li>At least 8 characters long</li>
+                                <li>At least one uppercase letter (A-Z)</li>
+                                <li>At least one number (0-9)</li>
+                                <li>At least one special character (!@#$%^&* etc.)</li>
+                            </ul>
+                        </div>
                     </div>
                     <div class="mb-3">
                         <label for="confirm_password" class="form-label">Confirm Password</label>
