@@ -31,8 +31,15 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="my_spottings.php">My Spottings</a>
-                        </li>
+                        
+                    </li>
                     <?php endif; ?>
+                    <?php if(isset($_SESSION['role']) && $_SESSION['role'] === 'admin'): ?>
+                        <li class="nav-item">
+                            <a class="nav-link" href="admin.php">Admin dashboard</a>
+                    </li>
+                    <?php endif; ?>
+                    
                 </ul>
                 <ul class="navbar-nav">
                     <?php if (isLoggedIn()): ?>

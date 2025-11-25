@@ -28,7 +28,7 @@ $sightings = $stmt->fetchAll(PDO::FETCH_ASSOC);
         <?php foreach ($sightings as $sighting): ?>
         <div class="col-md-4 mb-4">
             <div class="card">
-                <img src="https://via.placeholder.com/300x200/4A90E2/FFFFFF?text=Train+Photo" class="card-img-top" alt="Train photo">
+                <img src="<?php echo $sighting['photo_path'] ?: 'https://via.placeholder.com/400x250/3498db/FFFFFF?text=' . urlencode($sighting['train_model']); ?>" class="card-img-top" alt="Train photo">
                 <div class="card-body">
                     <h5 class="card-title"><?php echo htmlspecialchars($sighting['train_model']); ?></h5>
                     <p class="card-text">
