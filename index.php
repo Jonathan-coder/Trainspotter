@@ -17,7 +17,7 @@ $featured_sightings = $pdo->query("
 
 <!-- Hero Section -->
 <div class="hero-section text-center">
-    <div class="container">
+    <div class="mt-4">
         <h1 class="display-4 fw-bold">🚆 TrainSpotterLog</h1>
         <p class="lead">The social platform for train enthusiasts to share their sightings and connect with other railfans.</p>
         

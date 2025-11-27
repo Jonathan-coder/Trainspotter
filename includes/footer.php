@@ -3,7 +3,8 @@
     <footer class="bg-dark text-white text-center py-4 mt-5">
         <div class="container">
             <p class="mb-0">&copy; 2025 TrainSpotterLog. All rights reserved.</p>
-            <p class="text-muted small mb-0">Made with ❤️ for train enthusiasts</p>
+            <p class="small mb-0">Made with love, sweat and pain for train enthusiasts</p>
+            <p class="small mb-0">by Jonny and Pascal</p>
         </div>
     </footer>
 
