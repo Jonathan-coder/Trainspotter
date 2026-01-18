@@ -4,11 +4,19 @@ html, body {
 }
 
 body {
+    background-image: url('../Backround/BK_3.png');
+    
+    /* Deine bestehenden Styles bleiben */
     display: flex;
     flex-direction: column;
     min-height: 100vh;
     background-color: #f8f9fa;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    
+    /* Ergänze diese Eigenschaften für das Bild */
+    background-size: cover; /* oder contain, je nach Wunsch */
+    background-repeat: no-repeat;
+    background-position: center center;
 }
 
 .container {

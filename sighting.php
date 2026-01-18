@@ -41,6 +41,44 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isLoggedIn() && isset($_POST['comme
     $stmt->execute([$sighting_id, $_SESSION['user_id'], $comment]);
     redirect("sighting.php?id=$sighting_id");
 }
+$has_liked = false; // Standard: nicht geliked
+if (isLoggedIn()) {
+    $like_check_stmt = $pdo->prepare("SELECT id FROM likes WHERE sighting_id = ? AND user_id = ?");
+    $like_check_stmt->execute([$sighting_id, $_SESSION['user_id']]);
+    $has_liked = $like_check_stmt->fetch() !== false; // true wenn gefunden
+}
+
+// 2. Like-Anzahl für diesen Post holen
+$like_count_stmt = $pdo->prepare("SELECT COUNT(*) as like_count FROM likes WHERE sighting_id = ?");
+$like_count_stmt->execute([$sighting_id]);
+$like_count = $like_count_stmt->fetch(PDO::FETCH_ASSOC)['like_count'];
+
+// 3. Like-Button wurde geklickt - Verarbeiten
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isLoggedIn() && isset($_POST['toggle_like'])) {
+    if ($has_liked) {
+        // Fall 1: User hat schon geliked -> LIKE ENTFERNEN
+        $delete_stmt = $pdo->prepare("DELETE FROM likes WHERE sighting_id = ? AND user_id = ?");
+        $delete_stmt->execute([$sighting_id, $_SESSION['user_id']]);
+    } else {
+        // Fall 2: User hat noch nicht geliked -> LIKE HINZUFÜGEN
+        $insert_stmt = $pdo->prepare("INSERT INTO likes (sighting_id, user_id) VALUES (?, ?)");
+        $insert_stmt->execute([$sighting_id, $_SESSION['user_id']]);
+    }
+    
+    // Seite neu laden um Änderungen anzuzeigen
+    redirect("sighting.php?id=$sighting_id");
+}
+$is_featured = $sighting['is_featured'] ?? false;
+
+// Handle feature/unfeature action (nur für Admins)
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isAdmin() && isset($_POST['toggle_feature'])) {
+    $new_featured_status = $is_featured ? 0 : 1;
+    
+    $stmt = $pdo->prepare("UPDATE sightings SET is_featured = ? WHERE id = ?");
+    $stmt->execute([$new_featured_status, $sighting_id]);
+    
+    redirect("sighting.php?id=$sighting_id");
+}
 ?>
 
 <?php include 'includes/header.php'; ?>
@@ -48,12 +86,31 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isLoggedIn() && isset($_POST['comme
 <div class="row">
     <div class="col-md-8">
         <!-- Sighting Details -->
-        <div class="card mb-4">
-            <?php if ($sighting['photo_path']): ?>
-                <img src="<?php echo $sighting['photo_path']; ?>" class="card-img-top" alt="Train photo">
-            <?php else: ?>
-                <img src="https://via.placeholder.com/800x400/4A90E2/FFFFFF?text=Train+Photo" class="card-img-top" alt="Train photo">
-            <?php endif; ?>
+<div class="card mb-4 
+    <?php if ($is_featured): ?>
+        border-warning border-3 
+        rounded-top-0  <!-- Obere Ecken gerade -->
+    <?php endif; ?>">
+    
+    <!-- Featured Header -->
+    <?php if ($is_featured): ?>
+        <div class="card-header bg-warning text-dark rounded-0 py-2">
+            ⭐ FEATURED POST
+        </div>
+    <?php endif; ?>
+    
+    <!-- Photo mit geraden oberen Ecken bei featured -->
+    <?php if ($sighting['photo_path']): ?>
+        <img src="<?php echo $sighting['photo_path']; ?>" 
+             class="card-img-top <?php echo $is_featured ? 'rounded-top-0' : ''; ?>" 
+             alt="Train photo"
+             style="<?php echo $is_featured ? 'border-top: 3px solid #ffc107 !important;' : ''; ?>">
+    <?php else: ?>
+        <img src="https://via.placeholder.com/800x400/4A90E2/FFFFFF?text=Train+Photo" 
+             class="card-img-top <?php echo $is_featured ? 'rounded-top-0' : ''; ?>" 
+             alt="Train photo"
+             style="<?php echo $is_featured ? 'border-top: 3px solid #ffc107 !important;' : ''; ?>">
+    <?php endif; ?>
             
             <div class="card-body">
                 <h2 class="card-title"><?php echo htmlspecialchars($sighting['train_model']); ?></h2>
@@ -75,12 +132,35 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isLoggedIn() && isset($_POST['comme
                 <?php endif; ?>
                 
                 <div class="mt-3">
-                    <button class="btn btn-outline-primary btn-sm">👍 Like (0)</button>
-                    <button class="btn btn-outline-secondary btn-sm">💬 Comment</button>
-                    <?php if (isAdmin()): ?>
-                        <button class="btn btn-outline-warning btn-sm">⭐ Feature</button>
-                    <?php endif; ?>
-                </div>
+    <!-- EINGELOGGT-->
+    <?php if (isLoggedIn()): ?>
+        <form method="POST" class="d-inline">
+            <button type="submit" name="toggle_like" value="1" 
+                    class="btn <?php echo $has_liked ? 'btn-primary' : 'btn-outline-primary'; ?> btn-sm">
+                👍 Like (<?php echo $like_count; ?>)
+            </button>
+        </form>
+    <?php else: ?>
+        <!-- NICHT-EINGELOGGTE -->
+        <a href="login.php" class="btn btn-outline-primary btn-sm">
+            👍 Like (<?php echo $like_count; ?>)
+        </a>
+    <?php endif; ?>
+    
+    <!-- COMMENT BUTTON  -->
+    <button class="btn btn-outline-secondary btn-sm" onclick="document.getElementById('comment').focus()">
+        💬 Comment
+    </button>
+    
+    <?php if (isAdmin()): ?>
+    <form method="POST" class="d-inline">
+        <button type="submit" name="toggle_feature" value="1" 
+                class="btn <?php echo $is_featured ? 'btn-warning' : 'btn-outline-warning'; ?> btn-sm">
+            ⭐ <?php echo $is_featured ? 'Featured' : 'Feature'; ?>
+        </button>
+    </form>
+<?php endif; ?>
+</div>
             </div>
         </div>
 

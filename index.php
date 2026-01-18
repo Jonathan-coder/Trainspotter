@@ -8,6 +8,7 @@ $featured_sightings = $pdo->query("
     FROM sightings s 
     LEFT JOIN users u ON s.user_id = u.id 
     LEFT JOIN trains t ON s.train_id = t.id 
+    WHERE s.is_featured = TRUE  -- Nur featured Posts anzeigen
     ORDER BY s.created_at DESC 
     LIMIT 3
 ")->fetchAll(PDO::FETCH_ASSOC);
