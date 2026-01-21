@@ -30,6 +30,26 @@ $sightings_stmt = $pdo->prepare("
 ");
 $sightings_stmt->execute([$user_id]);
 $sightings = $sightings_stmt->fetchAll(PDO::FETCH_ASSOC);
+// Fetch likes
+$likes_received_stmt = $pdo->prepare("
+    SELECT COUNT(*) as likes_received
+    FROM likes l
+    INNER JOIN sightings s ON l.sighting_id = s.id
+    WHERE s.user_id = ?
+");
+$likes_received_stmt->execute([$user_id]);
+$likes_received = $likes_received_stmt->fetch(PDO::FETCH_ASSOC)['likes_received'];
+
+// Fetch comment count
+$comments_stmt = $pdo->prepare("
+    SELECT COUNT(*) as comment_count 
+    FROM comments 
+    WHERE user_id = ?
+");
+$comments_stmt->execute([$user_id]);
+$comment_count = $comments_stmt->fetch(PDO::FETCH_ASSOC)['comment_count'];
+
+
 
 $is_own_profile = isLoggedIn() && $_SESSION['user_id'] == $user_id;
 ?>
@@ -67,11 +87,11 @@ $is_own_profile = isLoggedIn() && $_SESSION['user_id'] == $user_id;
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                         Comments
-                        <span class="badge bg-success rounded-pill">0</span>
+                        <span class="badge bg-success rounded-pill"><?php echo $comment_count; ?></span>
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                         Likes Received
-                        <span class="badge bg-info rounded-pill">0</span>
+                        <span class="badge bg-info rounded-pill"><?php echo $likes_received; ?></span>
                     </li>
                 </ul>
             </div>

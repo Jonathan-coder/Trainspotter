@@ -6,15 +6,16 @@ html, body {
 body {
     background-image: url('../Backround/BK_3.png');
     
-    /* Deine bestehenden Styles bleiben */
+    
+
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-    background-color: #f8f9fa;
+    background-color: #d4e0ed;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     
-    /* Ergänze diese Eigenschaften für das Bild */
-    background-size: cover; /* oder contain, je nach Wunsch */
+
+    background-size: cover;
     background-repeat: no-repeat;
     background-position: center center;
 }
@@ -70,7 +71,7 @@ body {
     transform: translateY(-1px);
 }
 
-/* Footer FIX - damit er unten bleibt */
+/* Footer */
 footer {
     margin-top: auto;
     background: linear-gradient(135deg, #2c3e50, #34495e);
