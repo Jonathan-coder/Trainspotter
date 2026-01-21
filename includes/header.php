@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="de">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,9 +8,10 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="assets/css/style.css" rel="stylesheet">
 </head>
+
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container">
+        <div class="container-fluid mt-4 px-4">
             <a class="navbar-brand" href="index.php">🚆 TrainSpotterLog</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
@@ -31,15 +33,15 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="my_spottings.php">My Spottings</a>
-                        
-                    </li>
+
+                        </li>
                     <?php endif; ?>
-                    <?php if(isset($_SESSION['role']) && $_SESSION['role'] === 'admin'): ?>
+                    <?php if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin'): ?>
                         <li class="nav-item">
                             <a class="nav-link" href="admin.php">Admin dashboard</a>
-                    </li>
+                        </li>
                     <?php endif; ?>
-                    
+
                 </ul>
                 <ul class="navbar-nav">
                     <?php if (isLoggedIn()): ?>
@@ -58,20 +60,16 @@
                         </li>
                     <?php endif; ?>
                     <form action="search.php" method="GET" class="d-flex ms-3">
-                      <!-- Search -->
-                            <form action="search.php" method="GET" class="d-flex ms-3">
-    <div class="input-group input-group-sm">
-        <input type="text" 
-               name="search_term" 
-               class="form-control form-control-sm" 
-               placeholder="Search..." 
-               style="width: 150px;"
-               aria-label="Search">
-        <button class="btn btn-outline-light btn-sm" type="submit">
-            🔍
-        </button>
-    </div>
-</form>
+                        <!-- Search -->
+                        <form action="search.php" method="GET" class="d-flex ms-3">
+                            <div class="input-group input-group-sm">
+                                <input type="text" name="search_term" class="form-control form-control-sm"
+                                    placeholder="Search..." style="width: 150px;" aria-label="Search">
+                                <button class="btn btn-outline-light btn-sm" type="submit">
+                                    🔍
+                                </button>
+                            </div>
+                        </form>
                 </ul>
             </div>
         </div>
