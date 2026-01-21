@@ -57,6 +57,21 @@
                             <a class="nav-link" href="register.php">Register</a>
                         </li>
                     <?php endif; ?>
+                    <form action="search.php" method="GET" class="d-flex ms-3">
+                      <!-- Search -->
+                            <form action="search.php" method="GET" class="d-flex ms-3">
+    <div class="input-group input-group-sm">
+        <input type="text" 
+               name="search_term" 
+               class="form-control form-control-sm" 
+               placeholder="Search..." 
+               style="width: 150px;"
+               aria-label="Search">
+        <button class="btn btn-outline-light btn-sm" type="submit">
+            🔍
+        </button>
+    </div>
+</form>
                 </ul>
             </div>
         </div>

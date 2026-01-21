@@ -138,3 +138,83 @@ footer {
     font-size: 1.2em;
     margin-right: 5px;
 }
+
+/* assets/css/style.css */
+
+/* Search Page Styles */
+.search-card {
+    transition: transform 0.2s;
+}
+
+.search-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.object-fit-cover {
+    object-fit: cover;
+}
+
+.search-form-label {
+    font-weight: 500;
+    color: #495057;
+}
+
+.filter-badge {
+    font-size: 0.75em;
+    font-weight: 500;
+}
+
+/* Image container for search results */
+.search-image-container {
+    height: 200px;
+    overflow: hidden;
+    position: relative;
+}
+
+.search-date-badge {
+    position: absolute;
+    bottom: 8px;
+    right: 8px;
+    background-color: rgba(0, 0, 0, 0.75);
+    color: white;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.8em;
+}
+
+/* No results styling */
+.no-results-container {
+    padding: 80px 20px;
+    text-align: center;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    margin: 40px 0;
+}
+
+.no-results-icon {
+    font-size: 48px;
+    margin-bottom: 20px;
+}
+
+/* Active filters display */
+.active-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: center;
+}
+
+/* Instructions section */
+.search-instructions {
+    padding: 80px 20px;
+    text-align: center;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    margin: 40px 0;
+}
+
+.instruction-icon {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
